@@ -4,7 +4,11 @@ short read_chunk(FILE * fil, char * to)
 {
   short len;
   fread(&len, 2, 1, fil); /* read length of binary data */
-//  if (len > sizeof(to)) return -1;
+
+  // The following line would check the size of the buffer and return -1 if it would overflow.
+  // However, I preferred to implement this function by defaulting to getting the size of the
+  // buffer to copy to if the fread would overflow it.
+  //  if (len > sizeof(to)) return -1;
 
   len = len > sizeof(to) / 2 ? sizeof(to) / 2 : len;
 
